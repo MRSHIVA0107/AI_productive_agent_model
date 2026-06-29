@@ -1,0 +1,76 @@
+services:
+  # ==========================================
+  # LEVEL 1: Basic Agent
+  # ==========================================
+  l1-backend:
+    build: ./l1_basic_agent/backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./l1_basic_agent/backend/.env
+    profiles: ["l1", "all"]
+
+  l1-frontend:
+    build: ./l1_basic_agent/frontend
+    ports:
+      - "3000:5173"
+    profiles: ["l1", "all"]
+    depends_on:
+      - l1-backend
+
+  # ==========================================
+  # LEVEL 2: Memory Agent
+  # ==========================================
+  l2-backend:
+    build: ./l2_memory_agent/backend
+    ports:
+      - "8001:8001"
+    env_file:
+      - ./l2_memory_agent/backend/.env
+    profiles: ["l2", "all"]
+
+  l2-frontend:
+    build: ./l2_memory_agent/frontend
+    ports:
+      - "3001:5173"
+    profiles: ["l2", "all"]
+    depends_on:
+      - l2-backend
+
+  # ==========================================
+  # LEVEL 3: Runtime Agent
+  # ==========================================
+  l3-backend:
+    build: ./l3_runtime_agent/backend
+    ports:
+      - "8002:8002"
+    env_file:
+      - ./l3_runtime_agent/backend/.env
+    profiles: ["l3", "all"]
+
+  l3-frontend:
+    build: ./l3_runtime_agent/frontend
+    ports:
+      - "3002:5173"
+    profiles: ["l3", "all"]
+    depends_on:
+      - l3-backend
+
+  # ==========================================
+  # LEVEL 4: Founder Operating System
+  # ==========================================
+  l4-backend:
+    build: ./l4_founder_operating_system/backend
+    ports:
+      - "8003:8003"
+    env_file:
+      - ./l4_founder_operating_system/backend/.env
+    profiles: ["l4", "all"]
+
+  l4-frontend:
+    build: ./l4_founder_operating_system/frontend
+    ports:
+      - "3003:5173"
+    profiles: ["l4", "all"]
+    depends_on:
+      - l4-backend
